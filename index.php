@@ -1,7 +1,7 @@
 
 <?php
-require 'inc/header.inc.php';
 require 'inc/database.inc.php';
+require 'inc/header.inc.php';
 ?>
 
 

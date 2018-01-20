@@ -25,5 +25,4 @@ $req = $pdo->prepare(' USE Clicker;
 						);
 						
 						ALTER TABLE score ADD CONSTRAINT fk_pseudo FOREIGN KEY (pseudo) REFERENCES users(pseudo);
-	
-?>');
+	');
