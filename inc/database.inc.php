@@ -9,6 +9,8 @@ $url = 'mysql:host=' . $dbHost . ';dbname=' . $dbBd;
 $pdo = new PDO($url, $dbLogin, $dbPass);
 
 
+// Initialisation de la base de données en PDO et créations des tables
+
 $req = $pdo->prepare(' USE Clicker;
                         
                         CREATE TABLE IF NOT EXISTS users (
@@ -18,11 +20,11 @@ $req = $pdo->prepare(' USE Clicker;
 						);
 						
 						CREATE TABLE IF NOT EXISTS score (
-						pseudo VARCHAR(20) NOT NULL,
-						score INT(255) NOT NULL,
-						PRIMARY KEY (score)
-						
+						    pseudo VARCHAR(20) NOT NULL,
+						    score INT(255) NOT NULL,
+						    PRIMARY KEY (score)
 						);
 						
 						ALTER TABLE score ADD CONSTRAINT fk_pseudo FOREIGN KEY (pseudo) REFERENCES users(pseudo);
 	');
+

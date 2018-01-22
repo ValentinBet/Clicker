@@ -1,0 +1,42 @@
+
+// AJAX INSTANCIATION
+function getXMLHttpRequest() {
+    let xhr = null;
+
+    if (window.XMLHttpRequest || window.ActiveXObject) {
+        if (window.ActiveXObject) {
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch(e) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        } else {
+            xhr = new XMLHttpRequest();
+        }
+    } else {
+        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+        return null;
+    }
+
+    return xhr;
+}
+
+
+// TEST AJAX
+let xhr = getXMLHttpRequest();
+
+xhr.open("GET", "index.php", true);
+xhr.send(null);
+
+
+
+// DEBUT OBJECT JAVASCRIPT ET DECLARATIONS EN JSON
+
+let clicker =
+    {
+        CreateFactory: function(prix, gain, callback) {
+        },
+        score : 0,
+        nfactory : 0
+
+    };
