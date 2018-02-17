@@ -50,37 +50,39 @@ class Database
     }
 
 
-    private function checkNicknameValidity($nickname) {
-        if (3>=strlen($nickname) || strlen($nickname)>=10) return false;
+    private function checkpseudoValidity($pseudo)
+    {
+        if (3 >= strlen($pseudo) || strlen($pseudo) >= 10) return false;
         else return true;
     }
 
     /**
      * Vérifie si un mot de passe est valide
-
      * @param string $password Mot de passe à vérifier.
      * @return boolean True si le mot de passe est valide, false sinon.
      */
 
-    private function checkPasswordValidity($password) {
-        if (3>=strlen($password) || strlen($password)>=10) return false;
+    private function checkPasswordValidity($password)
+    {
+        if (3 >= strlen($password) || strlen($password) >= 10) return false;
         else return true;
     }
 
     /**
      * Vérifie la disponibilité d'un pseudonyme.
      *
-     * @param string $nickname Pseudonyme à vérifier.
+     * @param string $pseudo Pseudonyme à vérifier.
      * @return boolean True si le pseudonyme est disponible, false sinon.
      */
 
-    private function checkNicknameAvailability($nickname) {
-        //On récupère tous les champs 'nickname' de la table 'users'
+    private function checkpseudoAvailability($pseudo)
+    {
+        //On récupère tous les champs 'pseudo' de la table 'users'
         //Sous forme de tableau
-        $res = $this->connection->query('SELECT nickname FROM users;');
-        $nicknames = $res->fetch(PDO::FETCH_ASSOC);
-        if ($nicknames != '') {
-            if (in_array($nickname, $nicknames)) return false;
+        $res = $this->connection->query('SELECT pseudo FROM users;');
+        $pseudos = $res->fetch(PDO::FETCH_ASSOC);
+        if ($pseudos != '') {
+            if (in_array($pseudo, $pseudos)) return false;
         }
         return true;
     }
@@ -88,16 +90,42 @@ class Database
     /**
      * Vérifie qu'un couple (pseudonyme, mot de passe) est correct.
      *
-     * @param string $nickname Pseudonyme.
+     * @param string $pseudo Pseudonyme.
      * @param string $password Mot de passe.
      * @return boolean True si le couple est correct, false sinon.
      */
-    public function checkPassword($nickname, $password) {
-        $res = $this->connection->query('SELECT nickname, password FROM users WHERE nickname ="'.$nickname.'";');
+    public function checkPassword($pseudo, $password)
+    {
+        $res = $this->connection->query('SELECT pseudo, password FROM users WHERE pseudo ="' . $pseudo . '";');
         $login = $res->fetch(PDO::FETCH_ASSOC);
-        if ($nickname == $login['nickname'] && $password == $login['password']) return true;
+        if ($pseudo == $login['pseudo'] && $password == $login['password']) return true;
         else return false;
     }
+
+    public function setSessionLogin($login)
+    {
+        $_SESSION['login'] = $login;
+    }
+
+
+    public function addUser($pseudo, $password)
+    {
+
+        if ($this->checkpseudoAvailability($pseudo) == false) {
+            return "Le pseudo existe déjà.";
+
+        } elseif ($this->checkpseudoValidity($pseudo) == false) {
+            return "Le pseudo doit contenir entre 3 et 10 caractères.";
+
+        } elseif ($this->checkPasswordValidity($password) == false) {
+            return "Le mot de passe doit contenir entre 3 et 10 caractères.";
+        } else {
+            $res = $this->connection->exec('INSERT INTO users (pseudo, password) VALUES ("' . $pseudo . '", "' . $password . '" );');
+            if ($res) return true;
+        }
+
+    }
+
 
 }
 

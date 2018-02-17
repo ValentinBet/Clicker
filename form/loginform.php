@@ -1,4 +1,4 @@
-<form method="post" action="/index.php?action=SignUp" class="modal">
+<form method="post" action="" class="modal">
     <div class="#####">
         <h3>Inscription</h3>
     </div>
