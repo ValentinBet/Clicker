@@ -1,7 +1,2 @@
-
-
 <?php
-
-?>
-
-
+require 'login.php';

@@ -1,42 +1,42 @@
 
-// AJAX INSTANCIATION
-function getXMLHttpRequest() {
-    let xhr = null;
+// AJAX INSTANCIATION -- CREATION MODE ADMIN
 
-    if (window.XMLHttpRequest || window.ActiveXObject) {
-        if (window.ActiveXObject) {
-            try {
-                xhr = new ActiveXObject("Msxml2.XMLHTTP");
-            } catch(e) {
-                xhr = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-        } else {
-            xhr = new XMLHttpRequest();
-        }
+function showUser(str) {
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
     } else {
-        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
-        return null;
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","getuser.php?q="+str,true);
+        xmlhttp.send();
     }
-
-    return xhr;
 }
 
 
-// TEST AJAX
-let xhr = getXMLHttpRequest();
 
-xhr.open("GET", "index.php", true);
-xhr.send(null);
+// TEST AJAX
+
 
 
 
 // DEBUT OBJECT JAVASCRIPT ET DECLARATIONS EN JSON
-
-let clicker =
-    {
-        CreateFactory: function(prix, gain, callback) {
-        },
-        score : 0,
-        nfactory : 0
-
-    };
+//
+// let clicker =
+//     {
+//         CreateFactory: function(prix, gain, callback) {
+//         },
+//         score : 0,
+//         nfactory : 0
+//
+//     };
