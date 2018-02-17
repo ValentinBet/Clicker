@@ -107,6 +107,12 @@ class Database
         $_SESSION['login'] = $login;
     }
 
+    public function getSessionLogin() {
+        if (isset($_SESSION['login'])) {
+            $login = $_SESSION['login'];
+        } else $login = null;
+        return $login;
+    }
 
     public function addUser($pseudo, $password)
     {
